@@ -1,11 +1,10 @@
 // Require the necessary discord.js classes
 const Discord = require('discord.js');
 const fs = require('node:fs');
-const client = new Discord.Client({ 
-    intents: [
-        Discord.Intents.FLAGS.GUILDS,
-        Discord.Intents.FLAGS.GUILD_MESSAGES
-    ] 
+const client = new Discord.Client({
+	intents: [
+		Discord.GatewayIntentBits.Guilds,
+	],
 });
 
 // Environment Token for Discord
@@ -17,36 +16,36 @@ client.login(process.env.DISCORD_TOKEN);
 
 // When the client is ready, run this code (only once)
 client.once('ready', () => {
-    console.log(`Logged in as ${client.user.tag}!`);
+	console.log(`Logged in as ${client.user.tag}!`);
 });
 
 // Require files from commands folder
 client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 
-for(const file of commandFiles){
-    const command = require(`./commands/${file}`);
-    client.commands.set(command.data.name, command);
+for (const file of commandFiles) {
+	const command = require(`./commands/${file}`);
+	client.commands.set(command.data.name, command);
 }
 
 
-
 client.on('interactionCreate', async interaction => {
-    if (!interaction.isCommand()) return;
+	if (!interaction.isChatInputCommand()) return;
 
-    const command = client.commands.get(interaction.commandName);
+	console.log(`${interaction.user.tag} in #${interaction.channel.name} triggered '${interaction.commandName}'.`);
 
-    if(!command) return;
+	const command = client.commands.get(interaction.commandName);
 
-    try{
-        await command.execute(interaction);
-    }
-    catch(error){
-        console.error(error);
-        await interaction.reply({
-            content: 'There was an error while executing this command!', 
-            ephemeral: true,
-        });
-    }
+	if (!command) return;
+
+	try {
+		await command.execute(interaction);
+	}
+	catch (error) {
+		console.error(error);
+		await interaction.reply({
+			content: 'There was an error while executing this command!',
+			ephemeral: true,
+		});
+	}
 });
-  
