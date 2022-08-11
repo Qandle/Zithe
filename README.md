@@ -7,7 +7,7 @@ First, clone the repository.
 $ git clone https://github.com/Qandle/Zithe
 ```
 Because this project write by node.js, you have to install node first.
-If you do not have node.js, please follow this guide 
+If you do not have node.js, please follow this guide: [Installing Node.js](https://discordjs.guide/preparations/#installing-node-js)
 
 Then install all package
 ```
