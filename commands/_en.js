@@ -2,8 +2,8 @@ const { SlashCommandBuilder } = require('discord.js');
 
 module.exports = {
 	data: new SlashCommandBuilder()
-		.setName('_th')
-		.setDescription('TH <-> EN')
+		.setName('_en')
+		.setDescription('EN <-> TH')
 		.addStringOption((option) =>
 			option.setName('word')
 				.setDescription('Change word')
@@ -16,11 +16,11 @@ module.exports = {
 		en = en.split('');
 		const string = interaction.options.getString('word');
 		const arrOutput = Array.prototype.map.call(string, (e) => {
-			return th.indexOf(e) >= 0 ? en[th.indexOf(e)]
+			return en.indexOf(e) >= 0 ? th[en.indexOf(e)]
 				: e == ' ' ? ' ' : '';
 		});
 		let output = arrOutput.join('');
-		output ? output : output = 'Could not change to English';
+		output ? output : output = 'Could not change to Thai';
 		await interaction.reply(output);
 	},
 };
