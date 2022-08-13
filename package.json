@@ -10,7 +10,8 @@
   "version": "1.0.0",
   "main": "zithe.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "yarn node ."
   },
   "repository": "git+https://github.com/Qandle/Zithe.git",
   "keywords": [],
